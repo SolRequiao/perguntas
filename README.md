@@ -13,6 +13,7 @@ Este projeto tem como objetivo explorar e compreender melhor a integração entr
 
 ## Como Executar
 
-1. Comandos
+1. Comanos:
+   ```bash
    npm install
    node app.js
