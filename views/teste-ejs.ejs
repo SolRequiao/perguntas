@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title><%= title %></title>
+</head>
+<body>
+    <h1>Bem-vindo ao <%= nome %></h1>
+    <p>Esta é uma aplicação de exemplo utilizando EJS como template engine.</p>
+
+    <% if (simulandoErro) { %>
+        <p>Simulando um erro para teste.</p>
+    <% } else { %>
+        <p>Não há erros simulados.</p>
+    <% } %>
+
+    <% nomes.forEach(nome => { %>
+        <p>Nome: <%= nome.nome %> / Sobrenome: <%= nome.sobrenome %></p>
+    <% }) %>
+
+    <a href="/teste-ejs" class="btn btn-primary">Perguntas</a>
+
+    
+</body>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</html>
