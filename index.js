@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const { title } = require('process');
 const app = express();
 const port = process.env.PORT;
 
@@ -26,7 +25,7 @@ app.get('/page-example', (req, res) => {
 });
 
 
-// Rota para renderizar uma página EJS
+// Rota para renderizar uma página de testes do EJS
 app.get('/teste-ejs', (req, res) => {
   const nome = 'Teste EJS';
   const lang = 'pt-BR';
