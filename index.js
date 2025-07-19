@@ -16,17 +16,16 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist')
 
 
 app.get ('/', (req, res) => {
-  res.render('index', { title: 'Home', h1: 'Bem-vindo ao Guia de Perguntas' });
+  res.render('index', { title: 'Home'});
 });
 
-// Rota para renderizar uma página de exemplo
-app.get('/page-example', (req, res) => {
-  res.render('page-example');
+app.get('/perguntar', (req, res) => {
+  res.render('perguntar', { title: 'Perguntas' });
 });
 
 
 // Rota para renderizar uma página de testes do EJS
-app.get('/teste-ejs', (req, res) => {
+app.get('/teste/teste-ejs', (req, res) => {
   const nome = 'Teste EJS';
   const lang = 'pt-BR';
   const title = 'Pagina Teste EJS';
@@ -37,10 +36,8 @@ app.get('/teste-ejs', (req, res) => {
     { nome: 'Hadrion', sobrenome: 'Falcao' },
     { nome: 'Yang', sobrenome: 'Argolo' }
   ];
-    res.render('teste-ejs' , { nome, lang, title, simulandoErro, nomes });
+    res.render('teste/teste-ejs' , {nome, lang, title, simulandoErro, nomes });
 });
-
-
 
 
 // Rodando o servidor

@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <title><%= title %></title>
+<%- include ('partials/header.ejs')%>
 </head>
 <body>
-    <h1><%= h1 %></h1>
-    
+    <%-include ('partials/navbar.ejs')%>
+    <h1 class="text-center mt-5">Bem-vindo ao site de perguntas!</h1>
 </body>
-    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
-</html>
+<%- include ('partials/footer.ejs')%>
