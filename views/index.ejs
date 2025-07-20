@@ -3,5 +3,20 @@
 <body>
     <%-include ('partials/navbar.ejs')%>
     <h1 class="text-center mt-5">Bem-vindo ao site de perguntas!</h1>
+    <div class="container">
+        <% perguntas.forEach(pergunta => { %>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><%= pergunta.titulo %></h5>
+                    <p class="card-text"><%= pergunta.descricao %></p>
+                </div>
+                <div class="card-footer">
+                    <a href="/responder/<%= pergunta.id %>" class="btn btn-primary">Interagir com a Pergunta</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    
+
 </body>
 <%- include ('partials/footer.ejs')%>

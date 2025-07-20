@@ -7,18 +7,19 @@
                 <h3>Realizar pergunta</h3>
             </div>
             <div class="card-body">
-                <form>
+                <form method="POST" action="/salvar-pergunta">
                     <div class="mb-3">
                         <label for="" class="form-label">Titulo</label>
-                        <input type="text" class="form-control" id="" placeholder="Digite o título da pergunta"
+                        <input type="text" class="form-control" name="titulo" placeholder="Digite o título da pergunta"
                             required>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Descrição</label>
-                        <textarea name="" id="" class="form-control" placeholder="Descreva sua pergunta aqui"
+                        <textarea name="descricao" class="form-control" placeholder="Descreva sua pergunta aqui"
                             required></textarea>
                     </div>
-                    <button type="" class="btn btn-primary">Perguntar</button>
+                    <button type="submit" class="btn btn-success">Enviar Perguntar</button>
+                    <a href="/" class="btn btn-secondary">Voltar</a>
                 </form>
             </div>
         </div>

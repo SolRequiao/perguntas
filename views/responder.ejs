@@ -1,0 +1,17 @@
+<%- include('partials/header.ejs') %>
+</head>
+<body>
+    <%- include('partials/navbar.ejs') %>
+    <h1 class="text-center mt-5">Resposta Detalhada</h1>
+    <div class="container">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><%= pergunta.titulo %></h5>
+                <p class="card-text"><%= pergunta.descricao %></p>
+            </div>
+        </div>
+        <a href="/form-resposta" class="btn btn-primary">Responder</a>
+        <a href="/" class="btn btn-secondary">Voltar</a>
+    </div>
+</body>
+<%- include('partials/footer.ejs') %>
