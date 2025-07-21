@@ -1,17 +1,32 @@
-<%- include('partials/header.ejs') %>
-</head>
-<body>
-    <%- include('partials/navbar.ejs') %>
-    <h1 class="text-center mt-5">Resposta Detalhada</h1>
-    <div class="container">
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title"><%= pergunta.titulo %></h5>
-                <p class="card-text"><%= pergunta.descricao %></p>
+<%-include ('partials/header.ejs')%>
+
+    <body>
+        <%- include ('partials/navbar.ejs')%>
+            <div class="container" id="formulario">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="mb-3">Formulário de Resposta</h3>
+                        <% if (msgError) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= msgError %>
+                            </div>
+                            <% } %>
+
+                    </div>
+                    <div class="card-body">
+                        <form action="/salvar-resposta" method="post">
+                            <div class="mb-3">
+                                <input type="hidden" name="perguntaId" value="<%= pergunta.id %>">
+                                <label for="" class="form-label">Reposta</label>
+                                <textarea name="corpo" class="form-control" placeholder="Digite sua resposta"
+                                    required></textarea>
+                            </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">Enviar Resposta</button>
+                        <a href="/pergunta/<%= pergunta.id %>" class="btn btn-secondary">Voltar</a>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-        <a href="/form-resposta" class="btn btn-primary">Responder</a>
-        <a href="/" class="btn btn-secondary">Voltar</a>
-    </div>
-</body>
-<%- include('partials/footer.ejs') %>
+    </body>
+    <%- include ('partials/footer.ejs')%>
