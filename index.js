@@ -5,12 +5,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const conn = require('./database/database.js');
 const Pergunta = require('./database/Pergunta.js');
+const Resposta = require('./database/Resposta.js');
 const port = process.env.PORT;
 
 // Conectando ao banco de dados
 conn.authenticate()
   .then(() => {
-    console.log('Conexão com o banco de dados estabelecida com sucesso.');
+    console.log('Conexão com o banco OK');
   })
   .catch(err => {
     console.error('Não foi possível conectar ao banco de dados:', err);
@@ -32,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-app.get ('/', (req, res) => {
+app.get('/', (req, res) => {
   Pergunta.findAll({
     order: [['id', 'DESC']] // Ordena as perguntas por ID em ordem decrescente
   })
@@ -45,33 +46,46 @@ app.get ('/', (req, res) => {
     });
 });
 
-app.get('/perguntar', (req, res) => {  
-  res.render('perguntar', { title: 'Perguntas' });
+app.get('/perguntar', (req, res) => {
+  res.render('perguntar', { title: 'Perguntas', msgError: req.query.msgError });
 });
 
 app.post('/salvar-pergunta', (req, res) => {
   const { titulo, descricao } = req.body;
+  if (!titulo || !descricao) {
+    return res.redirect(`/perguntar?msgError=${encodeURIComponent('Para enviar este formulário é obrigatório preencher os campos Título e Descrição.')}`); // Redireciona com mensagem de erro
+  }
   Pergunta.create({
     titulo: titulo,
     descricao: descricao
   })
-  .then(() => {
-    res.redirect('/');
-  })
-  .catch(err => {
-    console.error('Erro ao salvar a pergunta:', err);
-    res.status(500).send('Erro ao salvar a pergunta');
-  });
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(err => {
+      console.error('Erro ao salvar a pergunta:', err);
+      res.status(500).send('Erro ao salvar a pergunta');
+    });
 });
 
-app.get('/responder/:id', (req, res) => {
+app.get('/pergunta/:id', (req, res) => {
   const id = req.params.id;
-  Pergunta.findByPk(id)
+  Pergunta.findOne({ where: { id: id } })
     .then(pergunta => {
       if (pergunta) {
-        res.render('responder', { pergunta: pergunta, title: 'Responder' });
+
+        Resposta.findAll({
+          where: { perguntaId: pergunta.id },
+          order: [['id', 'DESC']]
+        }).then(respostas => {
+          res.render('pergunta', { pergunta: pergunta, respostas: respostas, title: 'Pergunta' });
+        }).catch(err => {
+          console.error('Erro ao buscar respostas:', err);
+          res.status(500).send('Erro ao buscar respostas');
+        });
+
       } else {
-        res.status(404).send('Pergunta não encontrada');
+        res.redirect('/');
       }
     })
     .catch(err => {
@@ -80,9 +94,29 @@ app.get('/responder/:id', (req, res) => {
     });
 });
 
-app.get('/form-resposta', (req, res) => {
-  res.render('form-resposta', { title: 'Formulário de Resposta'});
+app.get('/responder/:id', (req, res) => {
+  const perguntaId = req.params.id;
+
+  res.render('responder', { title: 'Formulário de Resposta', pergunta: { id: perguntaId }, msgError: req.query.msgError });
 });
+
+app.post('/salvar-resposta', (req, res) => {
+  const { corpo, perguntaId } = req.body;
+  if (!corpo || !perguntaId) {
+    return res.redirect(`/responder/${perguntaId}?msgError=${encodeURIComponent('Para enviar este formulário é obrigatório preencher o campo Resposta.')}`);
+  }
+  Resposta.create({
+    corpo: corpo,
+    perguntaId: perguntaId
+  }).then(() => {
+    res.redirect(`/pergunta/${perguntaId}`);
+  }).catch(err => {
+    console.error('Erro ao salvar a resposta:', err);
+    res.status(500).send('Erro ao salvar a resposta');
+  });
+});
+
+
 
 // Rota para renderizar uma página de testes do EJS
 app.get('/teste/teste-ejs', (req, res) => {
@@ -96,7 +130,7 @@ app.get('/teste/teste-ejs', (req, res) => {
     { nome: 'Hadrion', sobrenome: 'Falcao' },
     { nome: 'Yang', sobrenome: 'Argolo' }
   ];
-    res.render('teste/teste-ejs' , {nome, lang, title, simulandoErro, nomes });
+  res.render('teste/teste-ejs', { nome, lang, title, simulandoErro, nomes });
 });
 
 
