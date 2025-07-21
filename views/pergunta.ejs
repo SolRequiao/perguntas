@@ -1,0 +1,39 @@
+<%- include('partials/header.ejs') %>
+    </head>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <h1 class="text-center mt-5 mb-5">Detalhes da Pergunta</h1>
+            <div class="container">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            <%= pergunta.titulo %>
+                        </h2>
+                        <p class="card-text">
+                            <%= pergunta.descricao %>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/responder/<%= pergunta.id %>" class="btn btn-primary">Responder</a>
+                        <a href="/" class="btn btn-secondary">Voltar</a>
+                    </div>
+                </div>
+
+                <h3 class="mb-2 mt-5">Respostas</h3>
+                <% respostas.forEach(resposta=> { %>
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <%= resposta.corpo %>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Respondido em: <%= resposta.createdAt.toLocaleDateString() %>
+                            </small>
+                        </div>
+                    </div>
+                    <% }); %>
+            </div>
+    </body>
+    <%- include('partials/footer.ejs') %>
