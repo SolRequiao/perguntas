@@ -1,21 +1,24 @@
 <%- include ('../partials/header.ejs')%>
-<body>
-    <%- include ('../partials/navbar.ejs')%>
-    <h1>Bem-vindo ao <%= nome %></h1>
-    <p>Esta é uma aplicação de exemplo utilizando EJS como template engine.</p>
 
-    <% if (simulandoErro) { %>
-        <p>Simulando um erro para teste.</p>
-    <% } else { %>
-        <p>Não há erros simulados.</p>
-    <% } %>
+    <body>
+        <%- include ('../partials/navbar.ejs')%>
+            <h1>Bem-vindo ao <%= nome %>
+            </h1>
+            <p>Esta é uma aplicação de exemplo utilizando EJS como template engine.</p>
 
-    <% nomes.forEach(nome => { %>
-        <p>Nome: <%= nome.nome %> / Sobrenome: <%= nome.sobrenome %></p>
-    <% }) %>
+            <% if (simulandoErro) { %>
+                <p>Simulando um erro para teste.</p>
+                <% } else { %>
+                    <p>Não há erros simulados.</p>
+                    <% } %>
 
-    <a href="#" class="btn btn-primary">Perguntas</a>
+                        <% nomes.forEach(nome=> { %>
+                            <p>Nome: <%= nome.nome %> / Sobrenome: <%= nome.sobrenome %>
+                            </p>
+                            <% }) %>
 
-    
-</body>
-<%- include ('../partials/footer.ejs')%>
+                                <a href="#" class="btn btn-primary">Perguntas</a>
+
+
+    </body>
+    <%- include ('../partials/footer.ejs')%>
