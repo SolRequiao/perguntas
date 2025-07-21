@@ -14,15 +14,11 @@ const Pergunta = conn.define('pergunta', {
 
 Pergunta.sync({ force: false })
   .then(() => {
-    if(Pergunta.tableName) {
-    console.log('Tabela ativa', Pergunta.tableName);
-    } else {    
-      console.log('Tabela criada com sucesso');
-    }
+    console.log('Tabela Pergunta OK');
   })
   .catch(err => {
     console.error('Erro ao criar a tabela Pergunta:', err);
   });
 
 
-  module.exports = Pergunta;
+module.exports = Pergunta;
