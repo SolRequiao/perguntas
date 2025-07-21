@@ -1,22 +1,24 @@
 <%- include ('partials/header.ejs')%>
-</head>
-<body>
-    <%-include ('partials/navbar.ejs')%>
-    <h1 class="text-center mt-5">Bem-vindo ao site de perguntas!</h1>
-    <div class="container">
-        <% perguntas.forEach(pergunta => { %>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title"><%= pergunta.titulo %></h5>
-                    <p class="card-text"><%= pergunta.descricao %></p>
-                </div>
-                <div class="card-footer">
-                    <a href="/responder/<%= pergunta.id %>" class="btn btn-primary">Interagir com a Pergunta</a>
-                </div>
-            </div>
-        <% }) %>
-    </div>
-    
+    </head>
 
-</body>
-<%- include ('partials/footer.ejs')%>
+    <body>
+        <%-include ('partials/navbar.ejs')%>
+            <h1 class="text-center mt-5 mb-5" style="padding-top: 20px">Bem vindo ao site de Perguntas e Respostas</h1>
+            <div class="container">
+                <% perguntas.forEach(pergunta=> { %>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <%= pergunta.titulo %>
+                            </h2>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/pergunta/<%= pergunta.id %>" class="btn btn-primary">Ajude a encontrar uma resposta</a>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+
+
+    </body>
+    <%- include ('partials/footer.ejs')%>
